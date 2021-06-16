@@ -6,16 +6,10 @@ const validateSchema = Yup.object().shape({
   gender: Yup.string()
     .required('Required'),
   age: Yup.number()
-    .min(2, 'Too Short!')
-    .max(2, 'Too Long!')
     .required('Required'),
   height: Yup.number()
-    .min(2, 'Too Short!')
-    .max(3, 'Too Long!')
     .required('Required'),
   weight: Yup.number()
-    .min(2, 'Too Short!')
-    .max(3, 'Too Long!')
     .required('Required'),
   activity: Yup.string()
     .required('Required'),
@@ -36,143 +30,144 @@ const Form = () => {
       console.log(values);
     },
   });
-  console.log(formik.isValid);
+  console.log(formik.initialValues);
   return (
-    <form onSubmit={formik.handleSubmit} class="counter__form form" name="counter" action="#" method="post">
-      <div class="form__item">
-        <h2 class="heading">
+    <form onSubmit={formik.handleSubmit} className="counter__form form" name="counter" action="#" method="post">
+      <div className="form__item">
+        <h2 className="heading">
           Пол
         </h2>
-        <ul class="switcher">
-          <li class="switcher__item">
-            <input onChange={formik.handleChange} id="gender-male" name="gender" value="male" type="radio" checked={formik.values.gender} required />
-            <label for="gender-male">
+        <ul className="switcher">
+          <li className="switcher__item">
+            <input onChange={formik.handleChange} id="gender-male" name="gender" value="male" type="radio" checked={formik.values.gender} />
+            <label htmlFor="gender-male">
               Мужчина
             </label>
           </li>
-          <li class="switcher__item">
-            <input onChange={formik.handleChange} id="gender-female" name="gender" value="female" type="radio" required />
-            <label for="gender-female">
+          <li className="switcher__item">
+            <input onChange={formik.handleChange} id="gender-female" name="gender" value="female" type="radio" />
+            <label htmlFor="gender-female">
               Женщина
             </label>
           </li>
         </ul>
       </div>
-      <fieldset class="form__item form__parameters" name="parameters">
-        <legend class="visually-hidden">
+      <fieldset className="form__item form__parameters" name="parameters">
+        <legend className="visually-hidden">
           Физические параметры
         </legend>
-        <div class="inputs-group">
-          <div class="input">
-            <div class="input__heading">
-              <label class="heading" for="age">
+        <div className="inputs-group">
+          <div className="input">
+            <div className="input__heading">
+              <label className="heading" htmlFor="age">
                 Возраст
               </label>
-              <span class="input__heading-unit">
+              <span className="input__heading-unit">
                 лет
               </span>
             </div>
-            <div class="input__wrapper">
-              <input onChange={formik.handleChange} type="text" id="age" name="age" placeholder="0" inputmode="decimal" maxlength="3" required />
+            <div className="input__wrapper">
+              <input onChange={formik.handleChange} type="text" id="age" name="age" placeholder="0" inputMode="decimal" maxLength="3" />
             </div>
+            {formik.touched.age && formik.errors.age && <div>{formik.errors.age}</div>}
           </div>
-          <div class="input">
-            <div class="input__heading">
-              <label class="heading" for="height">
+          <div className="input">
+            <div className="input__heading">
+              <label className="heading" htmlFor="height">
                 Рост
               </label>
-              <span class="input__heading-unit">
+              <span className="input__heading-unit">
                 см
               </span>
             </div>
-            <div class="input__wrapper">
-              <input onChange={formik.handleChange} type="text" id="height" name="height" placeholder="0" inputmode="decimal" maxlength="3" required />
+            <div className="input__wrapper">
+              <input onChange={formik.handleChange} type="text" id="height" name="height" placeholder="0" inputMode="decimal" maxLength="3" />
             </div>
           </div>
-          <div class="input">
-            <div class="input__heading">
-              <label class="heading" for="weight">
+          <div className="input">
+            <div className="input__heading">
+              <label className="heading" htmlFor="weight">
                 Вес
               </label>
-              <span class="input__heading-unit">
+              <span className="input__heading-unit">
                 кг
               </span>
             </div>
-            <div class="input__wrapper">
-              <input onChange={formik.handleChange} type="text" id="weight" name="weight" placeholder="0" inputmode="decimal" maxlength="3" required />
+            <div className="input__wrapper">
+              <input onChange={formik.handleChange} type="text" id="weight" name="weight" placeholder="0" inputMode="decimal" maxLength="3" />
             </div>
           </div>
         </div>
       </fieldset>
-      <fieldset class="form__item">
-        <legend class="heading">
+      <fieldset className="form__item">
+        <legend className="heading">
           Физическая активность
         </legend>
-        <ul class="radios-group">
-          <li class="radio">
-            <div class="radio__wrapper">
-              <input onChange={formik.handleChange} id="activity-minimal" name="activity" value="min" type="radio" checked={formik.values.activity} required />
-              <label for="activity-minimal">
+        <ul className="radios-group">
+          <li className="radio">
+            <div className="radio__wrapper">
+              <input onChange={formik.handleChange} id="activity-minimal" name="activity" value="min" type="radio" checked={formik.values.activity} />
+              <label htmlFor="activity-minimal">
                 Минимальная
               </label>
             </div>
-            <p class="radio__description">
+            <p className="radio__description">
               Сидячая работа и нет физических нагрузок
             </p>
           </li>
-          <li class="radio">
-            <div class="radio__wrapper">
-              <input onChange={formik.handleChange} id="activity-low" name="activity" value="low" type="radio" required />
-              <label for="activity-low">
+          <li className="radio">
+            <div className="radio__wrapper">
+              <input onChange={formik.handleChange} id="activity-low" name="activity" value="low" type="radio" />
+              <label htmlFor="activity-low">
                 Низкая
               </label>
             </div>
-            <p class="radio__description">
+            <p className="radio__description">
               Редкие, нерегулярные тренировки, активность в быту
             </p>
           </li>
-          <li class="radio">
-            <div class="radio__wrapper">
-              <input onChange={formik.handleChange} id="activity-medium" name="activity" value="medium" type="radio" required />
-              <label for="activity-medium">
+          <li className="radio">
+            <div className="radio__wrapper">
+              <input onChange={formik.handleChange} id="activity-medium" name="activity" value="medium" type="radio" />
+              <label htmlFor="activity-medium">
                 Средняя
               </label>
             </div>
-            <p class="radio__description">
+            <p className="radio__description">
               Тренировки 3-5 раз в неделю
             </p>
           </li>
-          <li class="radio">
-            <div class="radio__wrapper">
-              <input onChange={formik.handleChange} id="activity-high" name="activity" value="high" type="radio" required />
-              <label for="activity-high">
+          <li className="radio">
+            <div className="radio__wrapper">
+              <input onChange={formik.handleChange} id="activity-high" name="activity" value="high" type="radio" />
+              <label htmlFor="activity-high">
                 Высокая
               </label>
             </div>
-            <p class="radio__description">
+            <p className="radio__description">
               Тренировки 6-7 раз в неделю
             </p>
           </li>
-          <li class="radio">
-            <div class="radio__wrapper">
-              <input onChange={formik.handleChange} id="activity-maximal" name="activity" value="max" type="radio" required />
-              <label for="activity-maximal">
+          <li className="radio">
+            <div className="radio__wrapper">
+              <input onChange={formik.handleChange} id="activity-maximal" name="activity" value="max" type="radio" />
+              <label htmlFor="activity-maximal">
                 Очень высокая
               </label>
             </div>
-            <p class="radio__description">
+            <p className="radio__description">
               Больше 6 тренировок в неделю и физическая работа
             </p>
           </li>
         </ul>
       </fieldset>
-      <div class="form__submit">
-        <button class="form__submit-button button" name="submit" type="submit" disabled={!formik.isValid || !formik.dirty}>
+      <div className="form__submit">
+        <button className="form__submit-button button" name="submit" type="submit" disabled={!formik.isValid || !formik.dirty}>
           Рассчитать
         </button>
-        <button class="form__reset-button" name="reset" type="reset" disabled>
-          <svg width="24" height="24" viewbox="0 0 24 24" fill="#FD3636" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4143 12.0002L18.7072 6.70725C19.0982 6.31625 19.0982 5.68425 18.7072 5.29325C18.3162 4.90225 17.6842 4.90225 17.2933 5.29325L12.0002 10.5862L6.70725 5.29325C6.31625 4.90225 5.68425 4.90225 5.29325 5.29325C4.90225 5.68425 4.90225 6.31625 5.29325 6.70725L10.5862 12.0002L5.29325 17.2933C4.90225 17.6842 4.90225 18.3162 5.29325 18.7072C5.48825 18.9022 5.74425 19.0002 6.00025 19.0002C6.25625 19.0002 6.51225 18.9022 6.70725 18.7072L12.0002 13.4143L17.2933 18.7072C17.4882 18.9022 17.7443 19.0002 18.0002 19.0002C18.2562 19.0002 18.5122 18.9022 18.7072 18.7072C19.0982 18.3162 19.0982 17.6842 18.7072 17.2933L13.4143 12.0002Z" />
+        <button className="form__reset-button" name="reset" type="reset" disabled={!formik.dirty}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#FD3636" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M13.4143 12.0002L18.7072 6.70725C19.0982 6.31625 19.0982 5.68425 18.7072 5.29325C18.3162 4.90225 17.6842 4.90225 17.2933 5.29325L12.0002 10.5862L6.70725 5.29325C6.31625 4.90225 5.68425 4.90225 5.29325 5.29325C4.90225 5.68425 4.90225 6.31625 5.29325 6.70725L10.5862 12.0002L5.29325 17.2933C4.90225 17.6842 4.90225 18.3162 5.29325 18.7072C5.48825 18.9022 5.74425 19.0002 6.00025 19.0002C6.25625 19.0002 6.51225 18.9022 6.70725 18.7072L12.0002 13.4143L17.2933 18.7072C17.4882 18.9022 17.7443 19.0002 18.0002 19.0002C18.2562 19.0002 18.5122 18.9022 18.7072 18.7072C19.0982 18.3162 19.0982 17.6842 18.7072 17.2933L13.4143 12.0002Z" />
           </svg>
           <span>
             Очистить поля и расчёт
