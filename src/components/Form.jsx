@@ -6,10 +6,13 @@ const validateSchema = Yup.object().shape({
   gender: Yup.string()
     .required('Required'),
   age: Yup.number()
+    .min(10, 'Более 10 лет')
     .required('Required'),
   height: Yup.number()
+    .min(100, 'Более 100 см')
     .required('Required'),
   weight: Yup.number()
+    .min(40, 'Более 40 кг')
     .required('Required'),
   activity: Yup.string()
     .required('Required'),
@@ -30,7 +33,7 @@ const Form = () => {
       console.log(values);
     },
   });
-  console.log(formik.initialValues);
+  console.log(formik.errors)
   return (
     <form onSubmit={formik.handleSubmit} className="counter__form form" name="counter" action="#" method="post">
       <div className="form__item">
@@ -39,7 +42,7 @@ const Form = () => {
         </h2>
         <ul className="switcher">
           <li className="switcher__item">
-            <input onChange={formik.handleChange} id="gender-male" name="gender" value="male" type="radio" checked={formik.values.gender} />
+            <input onChange={formik.handleChange} id="gender-male" name="gender" value="male" type="radio" checked={formik.values.gender === 'male'} />
             <label htmlFor="gender-male">
               Мужчина
             </label>
@@ -67,9 +70,9 @@ const Form = () => {
               </span>
             </div>
             <div className="input__wrapper">
-              <input onChange={formik.handleChange} type="text" id="age" name="age" placeholder="0" inputMode="decimal" maxLength="3" />
+              <input onChange={formik.handleChange} value={formik.values.age} type="text" id="age" name="age" placeholder={formik.values.age} inputMode="decimal" maxLength="3" />
+              {formik.errors.age && <div className="input__error">{formik.errors.age}</div>}
             </div>
-            {formik.touched.age && formik.errors.age && <div>{formik.errors.age}</div>}
           </div>
           <div className="input">
             <div className="input__heading">
@@ -82,6 +85,7 @@ const Form = () => {
             </div>
             <div className="input__wrapper">
               <input onChange={formik.handleChange} type="text" id="height" name="height" placeholder="0" inputMode="decimal" maxLength="3" />
+              {formik.errors.height && <div className="input__error">{formik.errors.height}</div>}
             </div>
           </div>
           <div className="input">
@@ -95,6 +99,7 @@ const Form = () => {
             </div>
             <div className="input__wrapper">
               <input onChange={formik.handleChange} type="text" id="weight" name="weight" placeholder="0" inputMode="decimal" maxLength="3" />
+              {formik.errors.weight && <div className="input__error">{formik.errors.weight}</div>}
             </div>
           </div>
         </div>
@@ -106,7 +111,7 @@ const Form = () => {
         <ul className="radios-group">
           <li className="radio">
             <div className="radio__wrapper">
-              <input onChange={formik.handleChange} id="activity-minimal" name="activity" value="min" type="radio" checked={formik.values.activity} />
+              <input onChange={formik.handleChange} id="activity-minimal" name="activity" value="min" type="radio" checked={formik.values.activity === 'min'} />
               <label htmlFor="activity-minimal">
                 Минимальная
               </label>
@@ -162,10 +167,10 @@ const Form = () => {
         </ul>
       </fieldset>
       <div className="form__submit">
-        <button className="form__submit-button button" name="submit" type="submit" disabled={!formik.isValid || !formik.dirty}>
+        <button className="form__submit-button button" name="submit" type="submit" disabled={(!formik.isValid || !formik.dirty) || formik.isSubmitting}>
           Рассчитать
         </button>
-        <button className="form__reset-button" name="reset" type="reset" disabled={!formik.dirty}>
+        <button onClick={formik.handleReset} className="form__reset-button" name="reset" type="reset" disabled={!formik.dirty}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="#FD3636" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" clipRule="evenodd" d="M13.4143 12.0002L18.7072 6.70725C19.0982 6.31625 19.0982 5.68425 18.7072 5.29325C18.3162 4.90225 17.6842 4.90225 17.2933 5.29325L12.0002 10.5862L6.70725 5.29325C6.31625 4.90225 5.68425 4.90225 5.29325 5.29325C4.90225 5.68425 4.90225 6.31625 5.29325 6.70725L10.5862 12.0002L5.29325 17.2933C4.90225 17.6842 4.90225 18.3162 5.29325 18.7072C5.48825 18.9022 5.74425 19.0002 6.00025 19.0002C6.25625 19.0002 6.51225 18.9022 6.70725 18.7072L12.0002 13.4143L17.2933 18.7072C17.4882 18.9022 17.7443 19.0002 18.0002 19.0002C18.2562 19.0002 18.5122 18.9022 18.7072 18.7072C19.0982 18.3162 19.0982 17.6842 18.7072 17.2933L13.4143 12.0002Z" />
           </svg>
