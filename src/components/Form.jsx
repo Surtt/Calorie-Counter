@@ -18,9 +18,9 @@ const Form = () => {
   const formik = useFormik({
     initialValues: {
       gender: 'male',
-      age: 0,
-      height: 0,
-      weight: 0,
+      age: '',
+      height: '',
+      weight: '',
       activity: 'min',
     },
     validationSchema: validateSchema,
@@ -30,7 +30,7 @@ const Form = () => {
       // return showResult ? <Result show={showResult} values={values} /> : null;
     },
   });
-
+  // console.log(formik.values);
   const resetFields = () => {
     setShowResult(false);
     formik.handleReset();
@@ -73,7 +73,7 @@ const Form = () => {
                 </span>
               </div>
               <div className="input__wrapper">
-                <input onChange={formik.handleChange} value={formik.values.age} type="text" id="age" name="age" placeholder={formik.values.age} inputMode="decimal" maxLength="3" />
+                <input onChange={formik.handleChange} value={formik.values.age} type="text" id="age" name="age" placeholder="0" inputMode="decimal" maxLength="3" />
                 {formik.errors.age && <div className="input__error">Поле должно быть числом</div>}
               </div>
             </div>

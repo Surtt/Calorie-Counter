@@ -1,6 +1,5 @@
 import Title from './components/Title';
 import Form from './components/Form';
-import Result from './components/Result';
 
 import './App.css';
 
@@ -9,7 +8,6 @@ function App() {
     <article className="counter">
       <Title />
       <Form />
-      {/* <Result /> */}
     </article>
   );
 }

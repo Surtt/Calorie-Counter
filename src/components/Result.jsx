@@ -1,18 +1,42 @@
 import React from 'react';
 
 const Result = ({ show, values }) => {
-  console.log(values);
-  let result = 0;
-  if (values.gender === 'female') {
-    result = (10 * +values.weight) + (6.25 * +values.height) - (5 * +values.age) - 161;
-    console.log(result * 1.2);
-    // return result * 1.2;
-  }
-  // const result = Object.entries(values).reduce((acc, [key, value]) => {
-  //   if (values.gender === 'female') {
-  //       console.log('ff');
-  //     }
-  // }, 0);
+  const res = (data) => {
+    const male = (10 * +data.weight) + (6.25 * +data.height) - (5 * +data.age) + 5;
+    const female = (10 * +data.weight) + (6.25 * +data.height) - (5 * +data.age) - 161;
+    return data.gender === 'male' ? male : female;
+  };
+
+  const activity = {
+    min: 1.2,
+    low: 1.375,
+    medium: 1.55,
+    high: 1.725,
+    max: 1.9,
+  };
+
+  const result = res(values);
+  const sum = (result, data) => {
+    switch (data.activity) {
+      case 'min':
+        return result * activity.min;
+      case 'low':
+        return result * activity.low;
+      case 'medium':
+        return result * activity.medium;
+      case 'high':
+        return result * activity.high;
+      case 'max':
+        return result * activity.max;
+      default:
+        return result;
+    }
+  };
+
+  const standard = Math.round(sum(result, values));
+  const weightGain = Math.round(standard + standard * 0.15);
+  const weightLoss = Math.round(standard - standard * 0.15);
+
   const cs = show ? 'counter__result' : 'counter__result counter__result--hidden';
   return (
     <section className={cs}>
@@ -22,7 +46,7 @@ const Result = ({ show, values }) => {
       <ul className="counter__result-list">
         <li className="counter__result-item">
           <h3>
-            <span id="calories-norm">{result * 1.2}</span> ккал
+            <span id="calories-norm">{standard}</span> ккал
           </h3>
           <p>
             поддержание веса
@@ -30,7 +54,7 @@ const Result = ({ show, values }) => {
         </li>
         <li className="counter__result-item">
           <h3>
-            <span id="calories-minimal">3 300</span> ккал
+            <span id="calories-minimal">{weightLoss}</span> ккал
           </h3>
           <p>
             снижение веса
@@ -38,7 +62,7 @@ const Result = ({ show, values }) => {
         </li>
         <li className="counter__result-item">
           <h3>
-            <span id="calories-maximal">4 000</span> ккал
+            <span id="calories-maximal">{weightGain}</span> ккал
           </h3>
           <p>
             набор веса
