@@ -9,7 +9,7 @@ function App() {
     <article className="counter">
       <Title />
       <Form />
-      <Result />
+      {/* <Result /> */}
     </article>
   );
 }
