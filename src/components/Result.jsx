@@ -1,4 +1,5 @@
 import React from 'react';
+import i18next from 'i18next';
 
 const Result = ({ show, values }) => {
   const res = (data) => {
@@ -34,38 +35,38 @@ const Result = ({ show, values }) => {
   };
 
   const standard = Math.round(sum(result, values));
-  const weightGain = Math.round(standard + standard * 0.15);
   const weightLoss = Math.round(standard - standard * 0.15);
+  const weightGain = Math.round(standard + standard * 0.15);
 
   const cs = show ? 'counter__result' : 'counter__result counter__result--hidden';
   return (
     <section className={cs}>
       <h2 className="heading">
-        Ваша норма калорий
+        {i18next.t('result.norm')}
       </h2>
       <ul className="counter__result-list">
         <li className="counter__result-item">
           <h3>
-            <span id="calories-norm">{standard}</span> ккал
+            <span id="calories-norm">{standard}</span> {i18next.t('result.kcal')}
           </h3>
           <p>
-            поддержание веса
+            {i18next.t('result.standard')}
           </p>
         </li>
         <li className="counter__result-item">
           <h3>
-            <span id="calories-minimal">{weightLoss}</span> ккал
+            <span id="calories-minimal">{weightLoss}</span> {i18next.t('result.kcal')}
           </h3>
           <p>
-            снижение веса
+            {i18next.t('result.weightLoss')}
           </p>
         </li>
         <li className="counter__result-item">
           <h3>
-            <span id="calories-maximal">{weightGain}</span> ккал
+            <span id="calories-maximal">{weightGain}</span> {i18next.t('result.kcal')}
           </h3>
           <p>
-            набор веса
+            {i18next.t('result.weightGain')}
           </p>
         </li>
       </ul>
